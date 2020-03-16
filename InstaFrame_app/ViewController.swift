@@ -67,12 +67,15 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     
     func setFilter(action:UIAlertAction) {
         print(action.title!)
+        guard currentImage != nil else { return }
+        guard let actionTitle = action.title else { return }
+        currentFilter = CIFilter(name: actionTitle)
+        
+        let beginImage = CIImage(image: currentImage)
+        currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
+        
+        applyProcessing()
     }
-    
-    
-    
-    
-    
     
     @IBAction func save(_ sender: Any) {
     }
